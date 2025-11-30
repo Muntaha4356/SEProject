@@ -10,4 +10,5 @@ organisationRouter.post("/logout", logout)
 organisationRouter.get('/auth', organisationAuth, checkOrgAuth )
 organisationRouter.post('/getId', organisationAuth, getOrgId)
 organisationRouter.get("/metrics/:orgId", getDashboardMetrics)
+
 export default organisationRouter;
