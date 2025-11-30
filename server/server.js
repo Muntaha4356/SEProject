@@ -32,6 +32,12 @@ app.use(cors({
     credentials: true})) //sending cookies in response tofrontend
 
 //123
+
+
+
+app.get("/", (req, res) => {
+  res.send("API is running 🚀");
+});
 app.post("/create-checkout-session", donateOnline );
 
 
