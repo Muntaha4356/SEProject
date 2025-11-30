@@ -28,7 +28,7 @@ app.use(express.urlencoded({ limit: "10mb", extended: true }));
 app.use(cookieParser());
 
 app.use(cors({
-    origin: "https://se-project-ib81-f1soarish-muntaha4356s-projects.vercel.app",
+    origin: "http://localhost:8080",
     credentials: true})) //sending cookies in response tofrontend
 
 //123
@@ -45,20 +45,6 @@ app.post("/create-checkout-session", donateOnline );
 app.use("/api/org", organisationRouter);
 app.use("/api/campaigns", campaignRouter );
 app.use("/api/pay", payRouter)
-const connectWithRetry = async () => {
-  try {
-    await pool.query("SELECT 1");
-    console.log("DB connected");
 
-    app.listen(port, () => {
-      console.log(`Server started on port ${PORT}`);
-    });
-  } catch (err) {
-    console.error("DB connection failed. Retrying in 5s...");
-    setTimeout(connectWithRetry, 5000);
-  }
-};
-
-// connectWithRetry();
 
 app.listen(port , ()=> console.log(`Server started on port ${port}`));

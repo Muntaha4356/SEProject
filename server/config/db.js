@@ -11,9 +11,6 @@ const pool = new Pool({
 })
 console.log(process.env.SUPABASE_HOST)
 
-pool.on("error", (err) => {
-  console.error("PG Pool error:", err.message);
-  // You can also trigger a reconnect or alert here
-});
+
 
 export default pool;
