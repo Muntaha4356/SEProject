@@ -47,4 +47,6 @@ app.use("/api/campaigns", campaignRouter );
 app.use("/api/pay", payRouter)
 
 
-export default app;
+app.listen(port , ()=> console.log(`Server started on port ${port}`));
+
+
