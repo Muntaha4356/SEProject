@@ -251,7 +251,7 @@ const HomePage = () => {
                 </p>
                 <div className="flex items-center gap-6 text-white">
                   <div>
-                    <p className="text-2xl font-bold">${emergencyCampaigns[0]?.Raised}</p>
+                    <p className="text-2xl font-bold">${emergencyCampaigns[0]?.raised}</p>
                     <p className="text-sm text-white/80">of ${emergencyCampaigns[0]?.targetAmount} goal</p>
                   </div>
                   <div className="h-2 flex-1 bg-white/20 rounded-full overflow-hidden max-w-md">
