@@ -23,14 +23,13 @@ const DonationFormPreviewPage = () => {
   const [campaignData, setCampaignData] = useState<any>({});
   const raised = Number(campaignData?.collected_amount || 0);
   const targetAmount = Number(campaignData?.target_amount || 0);
-
   const progress = targetAmount > 0 ? (raised / targetAmount) * 100 : 0;
   const remaining = Math.max(targetAmount - raised, 0);
   const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
   const presetAmounts = [500, 1000, 5000];
   const { id } = useParams();
   const [loading, setLoading] = useState(true);
-  const campaignUrl = `http://localhost:8080/donation-form-preview/${id}`;
+  const campaignUrl = `${API_BASE_URL}/donation-form-preview/${id}`;
 
   useEffect(() => {
     if (!id) {
