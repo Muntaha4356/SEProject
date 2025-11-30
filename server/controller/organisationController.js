@@ -18,8 +18,8 @@ export const createOrganization = async (req, res) => {
       serial_number
     } = req.body;
 
-    if(!name || !org_email || !password || !website_url || !phone_number || !serial_number){
-        return res.json({success: false,message: 'Missing details'})
+    if (!name || !org_email || !password || !website_url || !phone_number || !serial_number) {
+      return res.json({ success: false, message: 'Missing details' })
     }
 
 
@@ -37,7 +37,7 @@ export const createOrganization = async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10);
 
 
-    
+
     const query = `
       INSERT INTO organizations 
       (name, contact_email, password, subscribed, org_type, website_url, about, country, phone_number, office_address, serial_no, verified)
@@ -61,23 +61,23 @@ export const createOrganization = async (req, res) => {
     ];
 
     const result = await pool.query(query, values);
-    if(!result){
+    if (!result) {
       return res.status(400).json({
         success: false,
         message: "Problem creating organisation"
       });
     }
-    const newOrgId = result.rows[0].id; 
-    const token_applied = jwt.sign({id: newOrgId}, process.env.JWT_SECRET, {expiresIn: '7d'});
+    const newOrgId = result.rows[0].id;
+    const token_applied = jwt.sign({ id: newOrgId }, process.env.JWT_SECRET, { expiresIn: '7d' });
 
-    res.cookie('token', token_applied, {
-            httpOnly : true,
-            secure: process.env.NODE_ENV === 'production', //if NODE_ENV is in production... it's true else, it's false
-            sameSite:"lax", //strict: if same server i.e. local host, none: if different environment
-            maxAge: 7 * 24 * 60 * 60 * 100, //After 7days it should expire
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: true, // must be true for SameSite=None
+      sameSite: "None", // required for cross-origin cookies
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+    });
 
-        })
-      
+
     res.status(201).json({
       success: true,
       message: "Organisation registered successfully",
@@ -128,15 +128,15 @@ export const loginOrganization = async (req, res) => {
 
     res.cookie("token", token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "lax",
-      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+      secure: true, // must be true for SameSite=None
+      sameSite: "None", // required for cross-origin cookies
+      maxAge: 7 * 24 * 60 * 60 * 1000,
     });
 
     res.status(200).json({
       success: true,
       message: "Logged in successfully",
-      data: { id: organization.id, name: organization.name, email},
+      data: { id: organization.id, name: organization.name, email },
     });
   } catch (error) {
     console.error("Login Error:", error);
@@ -145,19 +145,19 @@ export const loginOrganization = async (req, res) => {
 };
 
 export const logout = async (req, res) => {
-  try{
-        res.clearCookie('token', { 
-            httpOnly : true,
-                secure: process.env.NODE_ENV === 'production',
-                sameSite: process.env.NODE_ENV=== 'production' ? 'none' : 'strict',
-                
-            
+  try {
+    res.clearCookie('token', {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'strict',
 
-        })
-        return res.json({success : true, message:"Logged Out successfully"})
-    }catch(e){
-        res.json({success: false, message: error.message})
-    }
+
+
+    })
+    return res.json({ success: true, message: "Logged Out successfully" })
+  } catch (e) {
+    res.json({ success: false, message: error.message })
+  }
 }
 
 export const showAllRows = async (req, res) => {
@@ -181,7 +181,7 @@ export const showAllTables = async (req, res) => {
 
 
 export const checkOrgAuth = (req, res) => {
-  const {orgId} = req.body;
+  const { orgId } = req.body;
   if (!orgId) {
     return res.json({ authenticated: false, organization_id: null });
   }
