@@ -16,6 +16,7 @@ const SignInPage = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    console.log("API_BASE_URL:", API_BASE_URL);
     const res = await fetch(`${API_BASE_URL}/api/org/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
