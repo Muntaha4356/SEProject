@@ -29,7 +29,7 @@ const DonationFormPreviewPage = () => {
   const presetAmounts = [500, 1000, 5000];
   const { id } = useParams();
   const [loading, setLoading] = useState(true);
-  const campaignUrl = `${API_BASE_URL}/donation-form-preview/${id}`;
+  const campaignUrl = `${window.location.origin}/donation-form-preview/${id}`;
 
   useEffect(() => {
     if (!id) {
