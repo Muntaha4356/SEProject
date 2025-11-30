@@ -57,7 +57,7 @@ if (!id) return <p>Organization ID not found</p>;
 
       if (data.success) {
         localStorage.clear();
-
+        window.location.reload();
         navigate("/signup");
       } else {
         console.error("Logout failed:", data.message);
