@@ -28,7 +28,7 @@ app.use(express.urlencoded({ limit: "10mb", extended: true }));
 app.use(cookieParser());
 
 app.use(cors({
-    origin: process.env.BACKEND_URL,
+    origin: "https://se-project-ib81.vercel.app",
     credentials: true})) //sending cookies in response tofrontend
 
 //123
