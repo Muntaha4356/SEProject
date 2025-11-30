@@ -227,7 +227,7 @@ const HomePage = () => {
             onClick={() => {
               const emergencyId = emergencyCampaigns[0]?.id;
               if (emergencyId) {
-                window.location.href = `${API_BASE_URL}/donation-form-preview/${emergencyId}`;
+                window.location.href = `${window.location.origin}/donation-form-preview/${emergencyId}`;
               }
             }}
             className="relative h-[400px] md:h-[500px] rounded-2xl overflow-hidden cursor-pointer group shadow-medium hover:shadow-2xl transition-all duration-500"
