@@ -68,12 +68,16 @@ export const createOrganization = async (req, res) => {
       });
     }
     const newOrgId = result.rows[0].id;
-    const token_applied = jwt.sign({ id: newOrgId }, process.env.JWT_SECRET, { expiresIn: '7d' });
+    const token = jwt.sign(
+      { id: newOrgId },
+      process.env.JWT_SECRET,
+      { expiresIn: '7d' }
+    );
 
     res.cookie("token", token, {
       httpOnly: true,
-      secure: true, // must be true for SameSite=None
-      sameSite: "None", // required for cross-origin cookies
+      secure: true,
+      sameSite: "None",
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
 
@@ -84,6 +88,7 @@ export const createOrganization = async (req, res) => {
       data: result.rows[0]
     });
   } catch (error) {
+
     console.error("Signup Error:", error);
     res.status(500).json({
       success: false,

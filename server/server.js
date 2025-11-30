@@ -11,6 +11,7 @@ import Stripe from "stripe"
 import { chatgptAfterDonation, donateOnline } from "./controller/payController.js"
 import payRouter from "./routes/payRoutes.js"
 const app = express();
+app.set("trust proxy", 1);
 
 // 123
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
