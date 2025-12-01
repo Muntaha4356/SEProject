@@ -34,8 +34,8 @@ export const donateOnline = async (req, res) => {
         },
       ],
       mode: 'payment',
-      success_url: "http://localhost:8080/donation-success?session_id={CHECKOUT_SESSION_ID}",
-      cancel_url: "http://localhost:8080/donation-cancel",
+      success_url: "https://se-project-ib81.vercel.app/donation-success?session_id={CHECKOUT_SESSION_ID}",
+      cancel_url: "https://se-project-ib81.vercel.app/donation-cancel",
 
       metadata: {
         donorId: req.user?.id || 'anonymous', // Example: If user is authenticated
